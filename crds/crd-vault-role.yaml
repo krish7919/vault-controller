@@ -1,0 +1,242 @@
+# This CRD allows us to define various Vault Roles.
+# We use 3 auth roles: AppRole, AWS and Kubernetes, and in AWS auth, only
+# support AWS IAM auth.
+# We use 2 secrets roles: AWS and Postgres
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: vaultawsauthroles.configuration.vault.krish7919.github.com
+  labels:
+    app: vault-controller
+spec:
+  group: configuration.vault.krish7919.github.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    kind: VaultAWSAuthRole
+    singular: vaultawsauthrole
+    plural: vaultawsauthroles
+    shortNames:
+    - vaar
+  additionalPrinterColumns:
+  - name: Age
+    type: date
+    description: Age
+    JSONPath: .metadata.creationTimestamp
+  validation:
+    openAPIV3Schema:
+      type: object
+      required:
+      - spec
+      properties:
+        spec:
+          type: object
+          required:
+          - roleARN
+          - roleName
+          - policyName
+          - ttl
+          properties:
+            roleARN:
+              type: string
+            roleName:
+              type: string
+            policyName:
+              type: string
+            ttl:
+              type: string
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: vaultkubernetesauthroles.configuration.vault.krish7919.github.com
+  labels:
+    app: vault-controller
+spec:
+  group: configuration.vault.krish7919.github.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    kind: VaultKubernetesAuthRole
+    singular: vaultkubernetesauthrole
+    plural: vaultkubernetesauthroles
+    shortNames:
+    - vkar
+  additionalPrinterColumns:
+  - name: Age
+    type: date
+    description: Age
+    JSONPath: .metadata.creationTimestamp
+  validation:
+    openAPIV3Schema:
+      type: object
+      required:
+      - spec
+      properties:
+        spec:
+          type: object
+          required:
+          - roleName
+          - policyName
+          - kubernetesServiceAccountPattern
+          - ttl
+          properties:
+            roleName:
+              type: string
+            policyName:
+              type: string
+            kubernetesServiceAccountPattern:
+              type: string
+            ttl:
+              type: string
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: vaultapproleauthroles.configuration.vault.krish7919.github.com
+  labels:
+    app: vault-controller
+spec:
+  group: configuration.vault.krish7919.github.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    kind: VaultAppRoleAuthRole
+    singular: vaultapproleauthrole
+    plural: vaultapproleauthroles
+    shortNames:
+    - varar
+  additionalPrinterColumns:
+  - name: Age
+    type: date
+    description: Age
+    JSONPath: .metadata.creationTimestamp
+  validation:
+    openAPIV3Schema:
+      type: object
+      required:
+      - spec
+      properties:
+        spec:
+          type: object
+          required:
+          - roleName
+          - policyName
+          - secretIDTTL
+          - tokenTTL
+          properties:
+            roleName:
+              type: string
+            policyName:
+              type: string
+            secretIDTTL:
+              type: string
+            tokenTTL:
+              type: string
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: vaultawssecretsroles.configuration.vault.krish7919.github.com
+  labels:
+    app: vault-controller
+spec:
+  group: configuration.vault.krish7919.github.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    kind: VaultAWSSecretsRole
+    singular: vaultawssecretsrole
+    plural: vaultawssecretsroles
+    shortNames:
+    - vasr
+  additionalPrinterColumns:
+  - name: Age
+    type: date
+    description: Age
+    JSONPath: .metadata.creationTimestamp
+  validation:
+    openAPIV3Schema:
+      type: object
+      required:
+      - spec
+      properties:
+        spec:
+          type: object
+          required:
+          - roleName
+          - policyARN
+          properties:
+            roleName:
+              type: string
+            policyARN:
+              type: string
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: vaultpgsecretsroles.configuration.vault.krish7919.github.com
+  labels:
+    app: vault-controller
+spec:
+  group: configuration.vault.krish7919.github.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    kind: VaultPGSecretsRole
+    singular: vaultpgsecretsrole
+    plural: vaultpgsecretsroles
+    shortNames:
+    - vpgsr
+  additionalPrinterColumns:
+  - name: Age
+    type: date
+    description: Age
+    JSONPath: .metadata.creationTimestamp
+  validation:
+    openAPIV3Schema:
+      type: object
+      required:
+      - spec
+      properties:
+        spec:
+          type: object
+          required:
+          - roleName
+          - connectionName
+          - creationStatement
+          - revocationStatement
+          - rollbackStatement
+          - renewStatement
+          - ttl
+          properties:
+            roleName:
+              type: string
+            connectionName:
+              type: string
+            creationStatement:
+              type: string
+            revocationStatement:
+              type: string
+            rollbackStatement:
+              type: string
+            renewStatement:
+              type: string
+            ttl:
+              type: string

@@ -1,0 +1,80 @@
+apiVersion: configuration.vault.krish7919.github.com/v1
+kind: VaultAWSAuthRole
+metadata:
+  name: vault-aws-auth-role-test
+  namespace: vault-controller-test
+  labels:
+    env: dev
+    cluster: k8s
+  annotations:
+    timestamp: 201912091109
+spec:
+  roleARN: "test_aws_role_arn"
+  roleName: "test_role_name"
+  policyName: "test_policy_name"
+  ttl: "test_ttl"
+---
+apiVersion: configuration.vault.krish7919.github.com/v1
+kind: VaultKubernetesAuthRole
+metadata:
+  name: vault-kubernetes-auth-role-test
+  namespace: vault-controller-test
+  labels:
+    env: dev
+    cluster: k8s
+  annotations:
+    timestamp: 201912091109
+spec:
+  roleName: "test_role_name"
+  policyName: "test_policy_name"
+  kubernetesServiceAccountPattern: "test_k8s_sa_pattern"
+  ttl: "test_ttl"
+---
+apiVersion: configuration.vault.krish7919.github.com/v1
+kind: VaultAppRoleAuthRole
+metadata:
+  name: vault-approle-auth-role-test
+  namespace: vault-controller-test
+  labels:
+    env: dev
+    cluster: k8s
+  annotations:
+    timestamp: 201912091109
+spec:
+  roleName: "test_role_name"
+  policyName: "test_policy_name"
+  secretIDTTL: "test_secret_id_ttl"
+  tokenTTL: "test_token_ttl"
+---
+apiVersion: configuration.vault.krish7919.github.com/v1
+kind: VaultAWSSecretsRole
+metadata:
+  name: vault-aws-secrets-role-test
+  namespace: vault-controller-test
+  labels:
+    env: dev
+    cluster: k8s
+  annotations:
+    timestamp: 201912091109
+spec:
+  roleName: "test_role_name"
+  policyARN: "test_policy_arn"
+---
+apiVersion: configuration.vault.krish7919.github.com/v1
+kind: VaultPGSecretsRole
+metadata:
+  name: vault-pg-secrets-role-test
+  namespace: vault-controller-test
+  labels:
+    env: dev
+    cluster: k8s
+  annotations:
+    timestamp: 201912091109
+spec:
+  roleName: "test_role_name"
+  connectionName: "test_connection_name"
+  creationStatement: "test_creation_statement"
+  revocationStatement: "test_recocation_statement"
+  rollbackStatement: "test_rollback_statement"
+  renewStatement: "test_renew_statement"
+  ttl: "test_ttl"

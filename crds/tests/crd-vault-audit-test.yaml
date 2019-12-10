@@ -1,0 +1,12 @@
+apiVersion: configuration.vault.krish7919.github.com/v1
+kind: VaultFileAudit
+metadata:
+  name: vault-audit-test
+  namespace: vault-controller-test
+  labels:
+    env: dev
+    cluster: k8s
+  annotations:
+    timestamp: 201912091109
+spec:
+  filePath: "/dev/stdout"

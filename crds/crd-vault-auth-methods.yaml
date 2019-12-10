@@ -1,0 +1,131 @@
+# The Vault Auth Methods enabled below are: AWS, Kubernetes and AppRole.
+#
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: vaultawsauths.configuration.vault.krish7919.github.com
+  labels:
+    app: vault-controller
+spec:
+  group: configuration.vault.krish7919.github.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    kind: VaultAWSAuth
+    singular: vaultawsauth
+    plural: vaultawsauths
+    shortNames:
+    - vaa
+  additionalPrinterColumns:
+  - name: Age
+    type: date
+    description: Age
+    JSONPath: .metadata.creationTimestamp
+  validation:
+    openAPIV3Schema:
+      type: object
+      required:
+      - spec
+      properties:
+        spec:
+          type: object
+          required:
+          - accessKey
+          - secretKey
+          - stsEndpoint
+          - headerValue
+          properties:
+            accessKey:
+              type: string
+            secretKey:
+              type: string
+            stsEndpoint:
+              type: string
+            headerValue:
+              type: string
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: vaultkubernetesauths.configuration.vault.krish7919.github.com
+  labels:
+    app: vault-controller
+spec:
+  group: configuration.vault.krish7919.github.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    kind: VaultKubernetesAuth
+    singular: vaultkubernetesauth
+    plural: vaultkubernetesauths
+    shortNames:
+    - vka
+  additionalPrinterColumns:
+  - name: Age
+    type: date
+    description: Age
+    JSONPath: .metadata.creationTimestamp
+  validation:
+    openAPIV3Schema:
+      type: object
+      required:
+      - spec
+      properties:
+        spec:
+          type: object
+          required:
+          - caCert
+          - apiEndpoint
+          - tokenReviewerJWT
+          properties:
+            caCert:
+              type: string
+            apiEndpoint:
+              type: string
+            tokenReviewerJWT:
+              type: string
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: vaultapproleauths.configuration.vault.krish7919.github.com
+  labels:
+    app: vault-controller
+spec:
+  group: configuration.vault.krish7919.github.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    kind: VaultAppRoleAuth
+    singular: vaultapproleauth
+    plural: vaultapproleauths
+    shortNames:
+    - vara
+  additionalPrinterColumns:
+  - name: Age
+    type: date
+    description: Age
+    JSONPath: .metadata.creationTimestamp
+  validation:
+    openAPIV3Schema:
+      type: object
+      required:
+      - spec
+      properties:
+        spec:
+          type: object
+          required:
+          - ttl
+          properties:
+            ttl:
+              type: string

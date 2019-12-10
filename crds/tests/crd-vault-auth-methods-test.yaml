@@ -1,0 +1,43 @@
+apiVersion: configuration.vault.krish7919.github.com/v1
+kind: VaultAWSAuth
+metadata:
+  name: vault-aws-auth-test
+  namespace: vault-controller-test
+  labels:
+    env: dev
+    cluster: k8s
+  annotations:
+    timestamp: 201912091109
+spec:
+  accessKey: "test_access_key"
+  secretKey: "test_secret_key"
+  stsEndpoint: "test_sts_endpoint"
+  headerValue: "test_header_value"
+---
+apiVersion: configuration.vault.krish7919.github.com/v1
+kind: VaultKubernetesAuth
+metadata:
+  name: vault-kubernetes-auth-test
+  namespace: vault-controller-test
+  labels:
+    env: dev
+    cluster: k8s
+  annotations:
+    timestamp: 201912091109
+spec:
+  caCert: "test_ca_cert"
+  apiEndpoint: "test_kubernetes_api_endpoint"
+  tokenReviewerJWT: "test_jwt"
+---
+apiVersion: configuration.vault.krish7919.github.com/v1
+kind: VaultAppRoleAuth
+metadata:
+  name: vault-approle-auth-test
+  namespace: vault-controller-test
+  labels:
+    env: dev
+    cluster: k8s
+  annotations:
+    timestamp: 201912091109
+spec:
+  ttl: "test_ttl_value"

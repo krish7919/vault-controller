@@ -1,0 +1,17 @@
+apiVersion: configuration.vault.krish7919.github.com/v1
+kind: VaultPolicy
+metadata:
+  name: vault-policy-test
+  namespace: vault-controller-test
+  labels:
+    env: dev
+    cluster: k8s
+  annotations:
+    timestamp: 201912091109
+spec:
+  name: vault-policy-test
+  access:
+  - path: /x/y/z
+    capabilities:
+    - read
+    - update

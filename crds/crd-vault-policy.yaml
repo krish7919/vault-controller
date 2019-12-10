@@ -1,0 +1,63 @@
+# This CRD allows us to define a Vault Policy
+#
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: vaultpolicies.configuration.vault.krish7919.github.com
+  labels:
+    app: vault-controller
+spec:
+  group: configuration.vault.krish7919.github.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    kind: VaultPolicy
+    singular: vaultpolicy
+    plural: vaultpolicies
+    shortNames:
+    - vp
+  additionalPrinterColumns:
+  - name: Age
+    type: date
+    description: Age
+    JSONPath: .metadata.creationTimestamp
+  validation:
+    openAPIV3Schema:
+      type: object
+      required:
+      - spec
+      properties:
+        spec:
+          type: object
+          required:
+          - name
+          - access
+          properties:
+            name:
+              type: string
+            access:
+              type: array
+              minimum: 1
+              items:
+                type: object
+                required:
+                - path
+                - capabilities
+                properties:
+                  path:
+                    type: string
+                  capabilities:
+                    type: array
+                    minimum: 1
+                    items:
+                      type: string
+                      enum:
+                      - create
+                      - read
+                      - update
+                      - write
+                      - list
